@@ -82,6 +82,3 @@ When executed in a Python environment, the script writes:
 - `Phase_3/outputs/roc_*.png`
 - `Phase_3/outputs/best_model.pkl`
 
-## Team Submission Note
-
-Each team member should keep the same structure in their own GitHub repository and update all phases individually so the work is visible in every profile.
