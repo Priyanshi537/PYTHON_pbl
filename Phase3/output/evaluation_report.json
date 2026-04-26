@@ -1,0 +1,475 @@
+{
+  "dataset": {
+    "source": "AirQualityUCI.csv",
+    "total_rows": 9325,
+    "train_rows": 7460,
+    "test_rows": 1865,
+    "target_distribution": {
+      "Good": 1555,
+      "Satisfactory": 1554,
+      "Moderate": 1554,
+      "Poor": 1554,
+      "Very Poor": 1553,
+      "Severe": 1555
+    }
+  },
+  "preprocessing": {
+    "missing_value_treatment": "Replace -200 sentinel values with NaN, then apply median imputation",
+    "normalization": "StandardScaler on selected features",
+    "feature_selection_method": "ANOVA F-score ranking with meteorological feature coverage",
+    "selected_features": [
+      "PT08.S2(NMHC)",
+      "C6H6(GT)",
+      "PT08.S1(CO)",
+      "PT08.S5(O3)",
+      "CO(GT)",
+      "PT08.S3(NOx)",
+      "NO2(GT)",
+      "PT08.S4(NO2)",
+      "lag1_C6H6(GT)",
+      "NOx(GT)",
+      "lag1_CO(GT)",
+      "lag1_NOx(GT)",
+      "T",
+      "RH",
+      "hour"
+    ],
+    "top_feature_scores": [
+      {
+        "feature": "PT08.S2(NMHC)",
+        "score": 2840.586479950087
+      },
+      {
+        "feature": "C6H6(GT)",
+        "score": 2348.1620942821855
+      },
+      {
+        "feature": "PT08.S1(CO)",
+        "score": 2278.647907592795
+      },
+      {
+        "feature": "PT08.S5(O3)",
+        "score": 2028.7883330771058
+      },
+      {
+        "feature": "CO(GT)",
+        "score": 1386.8509185041876
+      },
+      {
+        "feature": "PT08.S3(NOx)",
+        "score": 1305.6182403419532
+      },
+      {
+        "feature": "NO2(GT)",
+        "score": 1010.2931952256056
+      },
+      {
+        "feature": "PT08.S4(NO2)",
+        "score": 949.5688945482862
+      },
+      {
+        "feature": "lag1_C6H6(GT)",
+        "score": 905.5963171901511
+      },
+      {
+        "feature": "NOx(GT)",
+        "score": 900.8309160949831
+      },
+      {
+        "feature": "lag1_CO(GT)",
+        "score": 608.2212206181772
+      },
+      {
+        "feature": "lag1_NOx(GT)",
+        "score": 519.6201497722394
+      },
+      {
+        "feature": "lag1_NO2(GT)",
+        "score": 508.04478432942346
+      },
+      {
+        "feature": "hour",
+        "score": 305.296455445802
+      },
+      {
+        "feature": "hour_cos",
+        "score": 217.48428167529565
+      },
+      {
+        "feature": "hour_sin",
+        "score": 152.1468311004063
+      },
+      {
+        "feature": "is_weekend",
+        "score": 89.66510937444066
+      },
+      {
+        "feature": "NMHC(GT)",
+        "score": 87.39840144134563
+      },
+      {
+        "feature": "month_cos",
+        "score": 54.94812517294485
+      },
+      {
+        "feature": "lag1_NMHC(GT)",
+        "score": 42.77093795629868
+      }
+    ],
+    "target_definition": "Next-hour AQI-style severity category derived from quantile-binned pollutant score"
+  },
+  "models": [
+    {
+      "name": "logistic_regression",
+      "accuracy": 0.5297587131367292,
+      "precision_macro": 0.5101456354631073,
+      "recall_macro": 0.5014359537589691,
+      "f1_macro": 0.483275858666957,
+      "roc_auc_macro_ovr": 0.7110168461100156,
+      "confusion_matrix": [
+        [
+          399,
+          24,
+          12,
+          15,
+          1,
+          0
+        ],
+        [
+          161,
+          84,
+          44,
+          32,
+          1,
+          1
+        ],
+        [
+          49,
+          50,
+          69,
+          116,
+          3,
+          4
+        ],
+        [
+          16,
+          12,
+          25,
+          150,
+          46,
+          22
+        ],
+        [
+          9,
+          5,
+          3,
+          89,
+          78,
+          76
+        ],
+        [
+          1,
+          2,
+          4,
+          27,
+          27,
+          208
+        ]
+      ],
+      "classification_report": {
+        "Good": {
+          "precision": 0.6283464566929133,
+          "recall": 0.88470066518847,
+          "f1-score": 0.7348066298342542,
+          "support": 451.0
+        },
+        "Moderate": {
+          "precision": 0.4394904458598726,
+          "recall": 0.23711340206185566,
+          "f1-score": 0.3080357142857143,
+          "support": 291.0
+        },
+        "Poor": {
+          "precision": 0.34965034965034963,
+          "recall": 0.5535055350553506,
+          "f1-score": 0.42857142857142855,
+          "support": 271.0
+        },
+        "Satisfactory": {
+          "precision": 0.4745762711864407,
+          "recall": 0.26006191950464397,
+          "f1-score": 0.336,
+          "support": 323.0
+        },
+        "Severe": {
+          "precision": 0.6688102893890675,
+          "recall": 0.7732342007434945,
+          "f1-score": 0.7172413793103448,
+          "support": 269.0
+        },
+        "Very Poor": {
+          "precision": 0.5,
+          "recall": 0.3,
+          "f1-score": 0.375,
+          "support": 260.0
+        },
+        "accuracy": 0.5297587131367292,
+        "macro avg": {
+          "precision": 0.5101456354631073,
+          "recall": 0.5014359537589691,
+          "f1-score": 0.483275858666957,
+          "support": 1865.0
+        },
+        "weighted avg": {
+          "precision": 0.5196940053125206,
+          "recall": 0.5297587131367292,
+          "f1-score": 0.5019544080910088,
+          "support": 1865.0
+        }
+      },
+      "per_class_auc": {
+        "Good": 0.9389993006269267,
+        "Satisfactory": 0.6859131119168946,
+        "Moderate": 0.7231013418217862,
+        "Poor": 0.421520739674147,
+        "Very Poor": 0.789916127486221,
+        "Severe": 0.7066504551341178
+      }
+    },
+    {
+      "name": "knn",
+      "accuracy": 0.5168900804289545,
+      "precision_macro": 0.4917728316317343,
+      "recall_macro": 0.4994668120517931,
+      "f1_macro": 0.49226791692785593,
+      "roc_auc_macro_ovr": 0.6835607114449839,
+      "confusion_matrix": [
+        [
+          331,
+          74,
+          37,
+          8,
+          1,
+          0
+        ],
+        [
+          74,
+          103,
+          108,
+          34,
+          4,
+          0
+        ],
+        [
+          14,
+          44,
+          129,
+          74,
+          24,
+          6
+        ],
+        [
+          8,
+          19,
+          54,
+          91,
+          71,
+          28
+        ],
+        [
+          2,
+          2,
+          17,
+          59,
+          97,
+          83
+        ],
+        [
+          0,
+          0,
+          4,
+          15,
+          37,
+          213
+        ]
+      ],
+      "classification_report": {
+        "Good": {
+          "precision": 0.7715617715617715,
+          "recall": 0.7339246119733924,
+          "f1-score": 0.7522727272727273,
+          "support": 451.0
+        },
+        "Moderate": {
+          "precision": 0.36962750716332377,
+          "recall": 0.44329896907216493,
+          "f1-score": 0.403125,
+          "support": 291.0
+        },
+        "Poor": {
+          "precision": 0.3238434163701068,
+          "recall": 0.33579335793357934,
+          "f1-score": 0.32971014492753625,
+          "support": 271.0
+        },
+        "Satisfactory": {
+          "precision": 0.4256198347107438,
+          "recall": 0.3188854489164087,
+          "f1-score": 0.36460176991150445,
+          "support": 323.0
+        },
+        "Severe": {
+          "precision": 0.6454545454545455,
+          "recall": 0.79182156133829,
+          "f1-score": 0.7111853088480802,
+          "support": 269.0
+        },
+        "Very Poor": {
+          "precision": 0.41452991452991456,
+          "recall": 0.3730769230769231,
+          "f1-score": 0.39271255060728744,
+          "support": 260.0
+        },
+        "accuracy": 0.5168900804289545,
+        "macro avg": {
+          "precision": 0.4917728316317343,
+          "recall": 0.4994668120517931,
+          "f1-score": 0.49226791692785593,
+          "support": 1865.0
+        },
+        "weighted avg": {
+          "precision": 0.515913022258341,
+          "recall": 0.5168900804289545,
+          "f1-score": 0.513199092329655,
+          "support": 1865.0
+        }
+      },
+      "per_class_auc": {
+        "Good": 0.9217407803498119,
+        "Satisfactory": 0.7078971461613521,
+        "Moderate": 0.7401404699214468,
+        "Poor": 0.3661227296087265,
+        "Very Poor": 0.732751018451953,
+        "Severe": 0.6327121241766125
+      }
+    },
+    {
+      "name": "svm",
+      "accuracy": 0.5458445040214477,
+      "precision_macro": 0.5172843765015918,
+      "recall_macro": 0.5245185244790014,
+      "f1_macro": 0.5183239729976644,
+      "roc_auc_macro_ovr": 0.7163386420165816,
+      "confusion_matrix": [
+        [
+          352,
+          78,
+          14,
+          6,
+          1,
+          0
+        ],
+        [
+          77,
+          152,
+          67,
+          22,
+          4,
+          1
+        ],
+        [
+          15,
+          74,
+          90,
+          91,
+          17,
+          4
+        ],
+        [
+          6,
+          16,
+          40,
+          108,
+          82,
+          19
+        ],
+        [
+          2,
+          10,
+          2,
+          55,
+          105,
+          86
+        ],
+        [
+          0,
+          0,
+          4,
+          24,
+          30,
+          211
+        ]
+      ],
+      "classification_report": {
+        "Good": {
+          "precision": 0.7787610619469026,
+          "recall": 0.7804878048780488,
+          "f1-score": 0.7796234772978959,
+          "support": 451.0
+        },
+        "Moderate": {
+          "precision": 0.4147465437788018,
+          "recall": 0.30927835051546393,
+          "f1-score": 0.3543307086614173,
+          "support": 291.0
+        },
+        "Poor": {
+          "precision": 0.35294117647058826,
+          "recall": 0.3985239852398524,
+          "f1-score": 0.37435008665511266,
+          "support": 271.0
+        },
+        "Satisfactory": {
+          "precision": 0.46060606060606063,
+          "recall": 0.47058823529411764,
+          "f1-score": 0.4655436447166922,
+          "support": 323.0
+        },
+        "Severe": {
+          "precision": 0.6573208722741433,
+          "recall": 0.7843866171003717,
+          "f1-score": 0.7152542372881356,
+          "support": 269.0
+        },
+        "Very Poor": {
+          "precision": 0.4393305439330544,
+          "recall": 0.40384615384615385,
+          "f1-score": 0.42084168336673344,
+          "support": 260.0
+        },
+        "accuracy": 0.5458445040214477,
+        "macro avg": {
+          "precision": 0.5172843765015918,
+          "recall": 0.5245185244790014,
+          "f1-score": 0.5183239729976644,
+          "support": 1865.0
+        },
+        "weighted avg": {
+          "precision": 0.5401504319792547,
+          "recall": 0.5458445040214477,
+          "f1-score": 0.5406767414019892,
+          "support": 1865.0
+        }
+      },
+      "per_class_auc": {
+        "Good": 0.9514578635563905,
+        "Satisfactory": 0.7224383916990922,
+        "Moderate": 0.7493788670710035,
+        "Poor": 0.37926588174288267,
+        "Very Poor": 0.7929235561945842,
+        "Severe": 0.7025672918355368
+      }
+    }
+  ],
+  "best_model": "svm"
+}
